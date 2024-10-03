@@ -1,15 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';;
 import { catchError, Observable, of } from 'rxjs';
 
+import { ErrorDialogComponent } from '../shared/components/error-dialog/error-dialog.component';
+import { CategoryPipe } from '../shared/pipe/category.pipe';
 import { Courses } from './model/courses';
 import { CoursesService } from './services/courses.service';
-import { ErrorDialogComponent } from '../shared/components/error-dialog/error-dialog.component';
+
 
 @Component({
   selector: 'app-courses',
@@ -20,7 +23,9 @@ import { ErrorDialogComponent } from '../shared/components/error-dialog/error-di
     MatToolbarModule,
     CommonModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule,
+    CategoryPipe
   ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss',
