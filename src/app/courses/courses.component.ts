@@ -35,7 +35,7 @@ export class CoursesComponent implements OnInit {
   displayedColumns = ['name', 'category'];
 
   constructor(
-    private coursesService: CoursesService,
+    private readonly coursesService: CoursesService,
     public dialog: MatDialog
   ) {
     this.courses$ = this.coursesService.list()
@@ -54,6 +54,9 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    let teste;
+  }
 }
 
