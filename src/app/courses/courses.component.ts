@@ -6,12 +6,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatButtonModule} from '@angular/material/button';
 import { catchError, Observable, of } from 'rxjs';
 
 import { ErrorDialogComponent } from '../shared/components/error-dialog/error-dialog.component';
 import { CategoryPipe } from '../shared/pipe/category.pipe';
 import { Courses } from './model/courses';
 import { CoursesService } from './services/courses.service';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -25,18 +28,20 @@ import { CoursesService } from './services/courses.service';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatIconModule,
-    CategoryPipe
+    CategoryPipe,
+    MatButtonModule
   ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss',
 })
 export class CoursesComponent implements OnInit {
   courses$: Observable<Courses[]>;
-  displayedColumns = ['name', 'category'];
+  displayedColumns = ['name','category','actions'];
 
   constructor(
     private readonly coursesService: CoursesService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private route: Router,
   ) {
     this.courses$ = this.coursesService.list()
     .pipe(
@@ -55,8 +60,11 @@ export class CoursesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
 
-    let teste;
+  onAdd(){
+    this.route.navigate(['new'])
+
   }
 }
 
