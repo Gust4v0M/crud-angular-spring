@@ -29,7 +29,8 @@ import { Router } from '@angular/router';
     MatDialogModule,
     MatIconModule,
     CategoryPipe,
-    MatButtonModule
+    MatButtonModule,
+
   ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss',
