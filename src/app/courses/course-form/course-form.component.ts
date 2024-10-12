@@ -9,6 +9,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { CoursesService } from '../services/courses.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-course-form',
@@ -32,7 +33,8 @@ export class CourseFormComponent implements OnInit {
   constructor(
     formBuilder: FormBuilder,
     private service: CoursesService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private location: Location
   ) {
     this.form = formBuilder.group({
       name: [null],
@@ -44,12 +46,20 @@ export class CourseFormComponent implements OnInit {
 
   onSubmit() {
     this.service.save(this.form.value).subscribe(
-      (res) => console.log(res),
-      (error) => this.onError()
+      res => this.onSucess(),
+      error => this.onError()
     );
   }
 
-  onCancel() {}
+  onCancel(){
+    this.location.back();
+  }
+
+  onSucess(){
+    this.snackbar.open('Curso criado com sucesso', '', {
+      duration: 5000,
+    }), this.onCancel();
+  }
 
   private onError() {
     this.snackbar.open('Erro ao salvar curso', '', {
