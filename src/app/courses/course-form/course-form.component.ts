@@ -25,7 +25,7 @@ import { Location } from '@angular/common';
     MatSnackBarModule,
   ],
   templateUrl: './course-form.component.html',
-  styleUrl: './course-form.component.css',
+  styleUrl: './course-form.component.scss',
 })
 export class CourseFormComponent implements OnInit {
   form: FormGroup;
@@ -37,8 +37,8 @@ export class CourseFormComponent implements OnInit {
     private location: Location
   ) {
     this.form = formBuilder.group({
-      name: [null],
-      category: [null],
+      name: [''],
+      category: [''],
     });
   }
 

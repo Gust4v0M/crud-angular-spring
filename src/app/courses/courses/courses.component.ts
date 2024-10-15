@@ -2,18 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatButtonModule} from '@angular/material/button';
 import { catchError, Observable, of } from 'rxjs';
 
-import { ErrorDialogComponent } from '../shared/components/error-dialog/error-dialog.component';
-import { CategoryPipe } from '../shared/pipe/category.pipe';
-import { Courses } from './model/courses';
-import { CoursesService } from './services/courses.service';
+import { ErrorDialogComponent } from './../../shared/components/error-dialog/error-dialog.component';
+import { Courses } from '../model/courses';
+import { CoursesService } from '../services/courses.service';
 import { Router } from '@angular/router';
+import { CoursesListComponent } from "../courses-list/courses-list.component";
 
 
 
@@ -27,11 +25,8 @@ import { Router } from '@angular/router';
     CommonModule,
     MatProgressSpinnerModule,
     MatDialogModule,
-    MatIconModule,
-    CategoryPipe,
-    MatButtonModule,
-
-  ],
+    CoursesListComponent
+],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss',
 })
