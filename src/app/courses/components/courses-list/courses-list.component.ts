@@ -1,11 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { Router } from '@angular/router';
 
-import { CategoryPipe } from '../../shared/pipe/category.pipe';
-import { Courses } from '../model/courses';
+import { CategoryPipe } from '../../../shared/pipe/category.pipe';
+import { Courses } from '../../model/courses';
 
 
 @Component({
@@ -22,16 +21,15 @@ import { Courses } from '../model/courses';
 })
 export class CoursesListComponent {
     @Input() courses: Courses[] = [];
+    @Output() add = new EventEmitter();
     readonly  displayedColumns = ['name','category','actions'];
 
 
     constructor(
-       private route: Router,
-
       ){ }
 
     onAdd(){
-      this.route.navigate(['new'])
-
+      //this.route.navigate(['new'])
+      this.add.emit()
     }
 }

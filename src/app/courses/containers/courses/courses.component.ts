@@ -7,11 +7,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { catchError, Observable, of } from 'rxjs';
 
-import { ErrorDialogComponent } from './../../shared/components/error-dialog/error-dialog.component';
-import { Courses } from '../model/courses';
-import { CoursesService } from '../services/courses.service';
+import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
+import { Courses } from '../../model/courses';
+import { CoursesService } from '../../services/courses.service';
 import { Router } from '@angular/router';
-import { CoursesListComponent } from "../courses-list/courses-list.component";
+import { CoursesListComponent } from "../../components/courses-list/courses-list.component";
 
 
 
