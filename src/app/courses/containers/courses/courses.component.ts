@@ -60,7 +60,10 @@ export class CoursesComponent implements OnInit {
 
   onAdd(){
     this.route.navigate(['new'])
+  }
 
+  onEdit(course: Courses){
+    this.route.navigate(['edit', course._id])
   }
 }
 

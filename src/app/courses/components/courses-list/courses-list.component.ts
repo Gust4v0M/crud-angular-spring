@@ -22,6 +22,7 @@ import { Courses } from '../../model/courses';
 export class CoursesListComponent {
     @Input() courses: Courses[] = [];
     @Output() add = new EventEmitter();
+    @Output() edit = new EventEmitter();
     readonly  displayedColumns = ['name','category','actions'];
 
 
@@ -30,6 +31,9 @@ export class CoursesListComponent {
 
     onAdd(){
       //this.route.navigate(['new'])
-      this.add.emit()
+      this.add.emit();
+    }
+    onEdit(course: Courses){
+      this.edit.emit(course);
     }
 }
