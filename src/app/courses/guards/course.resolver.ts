@@ -10,7 +10,8 @@ export const courseResolver: ResolveFn<Courses> = (route: ActivatedRouteSnapshot
 
   const router: Router = inject(Router)
       if(route.params && route.params['id']){
-      //console.log(route.params['id'])
+        return service.loadById(route.params['id']);
+
       }
-  return of({_id: '', nome: '', category: ''});
+  return of({_id: '', name: '', category: ''});
 };

@@ -10,6 +10,9 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { CoursesService } from '../../../services/courses.service';
+import { ActivatedRoute } from '@angular/router';
+import { Courses } from '../../../model/courses';
+import { identity } from 'rxjs';
 
 @Component({
   selector: 'app-course-form',
@@ -34,15 +37,27 @@ export class CourseFormComponent implements OnInit {
     formBuilder: FormBuilder,
     private service: CoursesService,
     private snackbar: MatSnackBar,
-    private location: Location
+    private location: Location,
+    private router: ActivatedRoute
   ) {
     this.form = formBuilder.group({
+
       name: [''],
       category: [''],
+
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    const course: Courses = this.router.snapshot.data['course'];
+
+    this.form.setValue({
+
+      name: course?.name || '',
+      category: course?.category || '',
+
+    })
+  }
 
   onSubmit() {
     this.service.save(this.form.value).subscribe(
