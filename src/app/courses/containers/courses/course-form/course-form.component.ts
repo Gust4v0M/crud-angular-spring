@@ -42,6 +42,7 @@ export class CourseFormComponent implements OnInit {
   ) {
     this.form = formBuilder.group({
 
+      _id: [''],
       name: [''],
       category: [''],
 
@@ -51,8 +52,9 @@ export class CourseFormComponent implements OnInit {
   ngOnInit() {
     const course: Courses = this.router.snapshot.data['course'];
 
-    this.form.setValue({
+    this.form.patchValue({
 
+      _id: course?._id || '',
       name: course?.name || '',
       category: course?.category || '',
 
