@@ -2,6 +2,7 @@ package com.gustavo.controler;
 
 import java.util.List;
 
+import org.hibernate.annotations.DialectOverride.SQLDelete;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

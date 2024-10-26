@@ -1,5 +1,7 @@
 package com.gustavo.model;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.DialectOverride.Where;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -17,6 +19,9 @@ import lombok.Data;
 
 @Data
 @Entity
+
+@SQLDelete(sql = "UPDATE Course SET status = 'inativo' where id = ? AND status = 'ativo'")
+//@Where(clause = "status = 'ativo'")
 public class Course {
     
     @Id
@@ -35,4 +40,10 @@ public class Course {
     @Pattern(regexp = "Back-end|Front-end")
     @Column(length = 10, nullable = false)
     private String category;
+
+    @NotNull
+    @Length(max = 10)
+    @Pattern(regexp = "Ativo|Inativo")
+    @Column(length = 10, nullable = false)
+    private String status = "Ativo";
 }
