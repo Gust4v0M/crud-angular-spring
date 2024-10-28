@@ -1,7 +1,6 @@
 package com.gustavo.model;
 
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.DialectOverride.Where;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
