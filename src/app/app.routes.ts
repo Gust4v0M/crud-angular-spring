@@ -14,4 +14,4 @@ export const routes: Routes = [
         path:'edit/:id', loadComponent:() => import('./courses/containers/courses/course-form/course-form.component').then(c => c.CourseFormComponent), resolve: { course: courseResolver}
   }
 
-]   ;
+];
