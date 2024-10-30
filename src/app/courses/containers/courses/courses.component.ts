@@ -66,16 +66,12 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
   onAdd(){
     this.route.navigate(['new'])
   }
-
   onEdit(course: Courses){
     this.route.navigate(['edit', course._id])
-  }
-  openDialog(): void {
-
+  }  openDialog(): void {
   }
 
   onDelete(course: Courses){

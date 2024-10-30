@@ -38,15 +38,12 @@ export class CoursesService {
     console.log('create')
     return this.create(record);
   }
-
   private create(record: Courses){
     return this.httpClient.post<Courses>(this.API, record);
   }
-
   private update(record: Courses){
     return this.httpClient.put<Courses>(`${this.API}/${record._id}`, record);
   }
-
   public delete(id: string){
     return this.httpClient.delete<Courses>(`${this.API}/${id}`);
   }

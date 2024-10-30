@@ -72,7 +72,6 @@ export class CourseFormComponent implements OnInit {
     if(field?.hasError('required')){
       return 'Precisa colocar algum valor'
     }
-
     if(field?.hasError('minlength')){
       const requiredLength: number = field.errors ? field.errors['minlength']['requiredLength'] : 5;
       return `Tamanho mínimo precisa ser de ${requiredLength} caracteres`;
@@ -90,17 +89,14 @@ return 'Erro'
       error => this.onError()
     );
   }
-
   onCancel(){
     this.location.back();
   }
-
   onSucess(){
     this.snackbar.open('Curso criado com sucesso', '', {
       duration: 5000,
     }), this.onCancel();
   }
-
   private onError() {
     this.snackbar.open('Erro ao salvar curso', '', {
       duration: 5000,
