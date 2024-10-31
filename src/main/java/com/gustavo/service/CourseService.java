@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.gustavo.dto.CourseDTO;
 import com.gustavo.dto.mapper.CourseMapper;
+import com.gustavo.enums.Category;
 import com.gustavo.exception.RecordNotFoundException;
 import com.gustavo.repository.CourseRepository;
 
@@ -51,7 +52,7 @@ public class CourseService {
       return courseRepository.findById(id)
               .map(recordFound ->{
                   recordFound.setName(course.name());
-                  recordFound.setCategory(course.category());
+                  recordFound.setCategory(Category.FRONT_END);
                   return courseRepository.save(recordFound);
                 
               }).map(courseMapper :: toDTO)
