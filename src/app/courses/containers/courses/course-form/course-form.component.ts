@@ -92,9 +92,6 @@ return 'Erro'
   onCancel(){
     this.location.back();
   }
-
-
-
   onSucess(){
     this.snackbar.open('Curso criado com sucesso', '', {
       duration: 5000,
