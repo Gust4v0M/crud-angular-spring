@@ -1,9 +1,10 @@
 import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, UntypedFormArray, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -11,8 +12,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute } from '@angular/router';
 
 import { Courses } from '../../../model/courses';
-import { CoursesService } from '../../../services/courses.service';
 import { Lesson } from '../../../model/lesson';
+import { CoursesService } from '../../../services/courses.service';
 
 @Component({
   selector: 'app-course-form',
@@ -27,7 +28,8 @@ import { Lesson } from '../../../model/lesson';
     MatSelectModule,
     MatSnackBarModule,
     MatFormFieldModule,
-    CommonModule
+    CommonModule,
+    MatIcon
   ],
   templateUrl: './course-form.component.html',
   styleUrl: './course-form.component.scss',
@@ -79,6 +81,10 @@ console.log(this.form.value);
       lessons.push(this.createLessons())
     }
     return lessons;
+  }
+
+  obgLesson(){
+    return (<UntypedFormArray>this.form.get('lessons')).controls;
   }
 
   private createLessons(lesson: Lesson = {id:'', name: '', youtubeUrl: ''}){
