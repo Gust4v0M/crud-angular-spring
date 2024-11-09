@@ -113,6 +113,16 @@ console.log(this.form.value);
 return 'Erro'
   }
 
+  removeLesson(index: number){
+    const lessons = this.form.get('lessons') as UntypedFormArray
+    lessons.removeAt(index);
+  }
+
+  addNewLesson(){
+   const lessons = this.form.get('lessons') as UntypedFormArray
+   lessons.push(this.createLessons())
+  }
+
   onSubmit() {
     this.service.save(this.form.value).subscribe(
       res => this.onSucess(),
