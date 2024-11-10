@@ -31,6 +31,9 @@
           <mat-icon aria-label="Adicionar uma nova aula">add</mat-icon>
         </button>
       </mat-toolbar>
+      <mat-error *ngIf="isFormArrayRequeired()" class="formArrayError">
+       Adicione pelo menos uma aula
+      </mat-error>
 
       <table
         style="width: 100%"
@@ -42,6 +45,9 @@
             <mat-form-field class="full-width">
               <mat-label>Nome da Aula</mat-label>
               <input matInput formControlName="name" />
+              <mat-error *ngIf="obgLesson()[i].get('name')?.invalid">
+                Campo invalido
+              </mat-error>
             </mat-form-field>
           </td>
           <td style="width: 35%">
@@ -49,11 +55,14 @@
               <mat-label>URL</mat-label>
               <span matTextPrefix>htpps://youtu.be/&nbsp;</span>
               <input matInput  formControlName="youtubeUrl" />
+              <mat-error *ngIf="obgLesson()[i].get('youtubeUrl')?.invalid">
+                Campo invalido
+              </mat-error>
             </mat-form-field>
           </td>
           <td>
-            <button mat-icon-button color="warning" (click)="removeLesson(i)">
-              <mat-icon aria-label="Remover uma aula">remove</mat-icon>
+            <button mat-icon-button color="warn" (click)="removeLesson(i)">
+              <mat-icon aria-label="Remover uma aula">delete</mat-icon>
             </button>
           </td>
         </tr>
