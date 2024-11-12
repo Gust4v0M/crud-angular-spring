@@ -20,6 +20,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Courses } from '../../../model/courses';
 import { Lesson } from '../../../model/lesson';
 import { CoursesService } from '../../../services/courses.service';
+import { FormUtilsService } from '../../../../shared/form/form-utils.service';
 
 @Component({
   selector: 'app-course-form',
@@ -48,7 +49,8 @@ export class CourseFormComponent implements OnInit {
     private service: CoursesService,
     private snackbar: MatSnackBar,
     private location: Location,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    public formUtils: FormUtilsService
   ) {
     // this.form = formBuilder.group({
     //   _id: [''],
@@ -86,8 +88,7 @@ export class CourseFormComponent implements OnInit {
         Validators.required
       ),
     });
-    console.log(this.form);
-    console.log(this.form.value);
+
   }
 
   private retriveLessons(course: Courses) {
@@ -122,27 +123,6 @@ export class CourseFormComponent implements OnInit {
     });
   }
 
-  errorMessage(value: any) {
-    const field = this.form.get(value);
-
-    if (field?.hasError('required')) {
-      return 'Precisa colocar algum valor';
-    }
-    if (field?.hasError('minlength')) {
-      const requiredLength: number = field.errors
-        ? field.errors['minlength']['requiredLength']
-        : 5;
-      return `Tamanho mínimo precisa ser de ${requiredLength} caracteres`;
-    }
-    if (field?.hasError('maxlength')) {
-      const requiredLength: number = field.errors
-        ? field.errors['maxlength']['requiredLength']
-        : 100;
-      return `Tamanho máximo precisa ser de ${requiredLength} caracteres`;
-    }
-    return 'Erro';
-  }
-
   removeLesson(index: number) {
     const lessons = this.form.get('lessons') as UntypedFormArray;
     lessons.removeAt(index);
@@ -160,7 +140,7 @@ export class CourseFormComponent implements OnInit {
         (error) => this.onError()
       );
     } else {
-      alert('formulario Invalido');
+      this.formUtils.validadeAllFormFields(this.form);
     }
 
   }
