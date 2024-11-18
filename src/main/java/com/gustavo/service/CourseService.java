@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import com.gustavo.dto.CourseDTO;
 import com.gustavo.dto.mapper.CourseMapper;
 import com.gustavo.exception.RecordNotFoundException;
+import com.gustavo.model.Course;
 import com.gustavo.repository.CourseRepository;
 
 import jakarta.validation.Valid;
@@ -42,15 +43,18 @@ public class CourseService {
      
     }
 
-        public CourseDTO create(@Valid @NotNull CourseDTO course){
-        return courseMapper.toDTO(courseRepository.save(courseMapper.toEntity(course)));
+        public CourseDTO create(@Valid @NotNull CourseDTO courseDTO){
+        return courseMapper.toDTO(courseRepository.save(courseMapper.toEntity(courseDTO)));
     }
 
-    public CourseDTO update(@NotNull @Positive Long id, @Valid @NotNull CourseDTO course){
+    public CourseDTO update(@NotNull @Positive Long id, @Valid @NotNull CourseDTO courseDTO){
       return courseRepository.findById(id)
               .map(recordFound ->{
-                  recordFound.setName(course.name());
-                  recordFound.setCategory(courseMapper.convertCategoryValue(course.category()));
+                Course course = courseMapper.toEntity(courseDTO);
+                  recordFound.setName(courseDTO.name());
+                  recordFound.setCategory(courseMapper.convertCategoryValue(courseDTO.category()));
+                  recordFound.getLessons().clear();
+                  course.getLessons().forEach(recordFound.getLessons()::add);
                   return courseRepository.save(recordFound);
                 
               }).map(courseMapper :: toDTO)
