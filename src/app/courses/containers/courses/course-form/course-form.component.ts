@@ -88,7 +88,6 @@ export class CourseFormComponent implements OnInit {
         Validators.required
       ),
     });
-
   }
 
   private retriveLessons(course: Courses) {
