@@ -25,10 +25,7 @@ export class CoursesListComponent {
     @Output() edit = new EventEmitter();
     @Output() delete = new EventEmitter();
     readonly  displayedColumns = ['name','category','actions'];
-
-
-    constructor(
-      ){ }
+    constructor(){ }
 
     onAdd(){
       //this.route.navigate(['new'])

@@ -17,7 +17,6 @@ export class ConfirmationDialogComponent {
   readonly dialogRef = inject(MatDialogRef<ConfirmationDialogComponent>);
   readonly data = "Tem certeza que deseja excluir o curso?"
 
-
   onConfirm(result: boolean){
     this.dialogRef.close(result)
   }
