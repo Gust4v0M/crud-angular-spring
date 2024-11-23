@@ -1,6 +1,6 @@
 import { Courses } from './../../model/courses';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -8,12 +8,14 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 
 import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
 import { CoursesListComponent } from '../../components/courses-list/courses-list.component';
 import { CoursesService } from '../../services/courses.service';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { CoursePage } from '../../model/course-page';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 
 
@@ -28,14 +30,22 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
     MatProgressSpinnerModule,
     MatDialogModule,
     CoursesListComponent,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatPaginator
 ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss',
 })
 export class CoursesComponent implements OnInit {
-  courses$: Observable<Courses[]> | null = null;
+  courses$: Observable<CoursePage> | null = null;
+
   displayedColumns = ['name','category','actions'];
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  pageIndex = 0;
+  pageSize = 10;
+
 
   constructor(
     private readonly coursesService: CoursesService,
@@ -47,12 +57,16 @@ export class CoursesComponent implements OnInit {
 
   }
 
-  onReload(){
-    this.courses$ = this.coursesService.list()
+  onReload(pageEvent: PageEvent={ length:0, pageIndex:0, pageSize:10}){
+    this.courses$ = this.coursesService.list(pageEvent.pageIndex, pageEvent.pageSize)
     .pipe(
+      tap(() =>{
+        this.pageIndex = pageEvent.pageIndex,
+        this.pageSize = pageEvent.pageSize
+      }),
       catchError(error =>{
         this.onError('Erro ao carregar cursos')
-        return of([])
+        return of({courses:[], totalElements: 0, totalPages:0 })
       })
     )
   }
