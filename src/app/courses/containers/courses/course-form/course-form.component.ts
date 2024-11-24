@@ -1,4 +1,4 @@
-import { CommonModule, Location } from '@angular/common';
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
@@ -35,9 +35,8 @@ import { FormUtilsService } from '../../../../shared/form/form-utils.service';
     MatSelectModule,
     MatSnackBarModule,
     MatFormFieldModule,
-    CommonModule,
-    MatIcon,
-  ],
+    MatIcon
+],
   templateUrl: './course-form.component.html',
   styleUrl: './course-form.component.scss',
 })

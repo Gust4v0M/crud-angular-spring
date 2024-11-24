@@ -8,7 +8,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
 
 import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
 import { CoursesListComponent } from '../../components/courses-list/courses-list.component';
@@ -38,6 +38,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 })
 export class CoursesComponent implements OnInit {
   courses$: Observable<CoursePage> | null = null;
+  isLoading$ = new BehaviorSubject<boolean>(true);
 
   displayedColumns = ['name','category','actions'];
 
@@ -57,18 +58,22 @@ export class CoursesComponent implements OnInit {
 
   }
 
-  onReload(pageEvent: PageEvent={ length:0, pageIndex:0, pageSize:10}){
-    this.courses$ = this.coursesService.list(pageEvent.pageIndex, pageEvent.pageSize)
-    .pipe(
-      tap(() =>{
-        this.pageIndex = pageEvent.pageIndex,
-        this.pageSize = pageEvent.pageSize
-      }),
-      catchError(error =>{
-        this.onError('Erro ao carregar cursos')
-        return of({courses:[], totalElements: 0, totalPages:0 })
-      })
-    )
+  onReload(pageEvent: PageEvent = { length: 0, pageIndex: 0, pageSize: 10 }) {
+    this.isLoading$.next(true); // Inicia o estado de carregamento
+    this.courses$ = this.coursesService
+      .list(pageEvent.pageIndex, pageEvent.pageSize)
+      .pipe(
+        tap(() => {
+          this.pageIndex = pageEvent.pageIndex;
+          this.pageSize = pageEvent.pageSize;
+          this.isLoading$.next(false); // Finaliza o estado de carregamento
+        }),
+        catchError(error => {
+          this.onError('Erro ao carregar cursos');
+          this.isLoading$.next(false); // Finaliza o estado de carregamento mesmo com erro
+          return of({ courses: [], totalElements: 0, totalPages: 0 });
+        })
+      );
   }
 
 

@@ -20,7 +20,7 @@ export class CoursesService {
     return this.httpClient.get<CoursePage>(this.API, {params:{page, pageSize}})
     .pipe(
       first(),
-      delay(2000),
+      delay(1000),
       tap(res => console.log(res))
     );
   }
