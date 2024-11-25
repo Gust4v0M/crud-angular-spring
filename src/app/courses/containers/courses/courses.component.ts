@@ -47,7 +47,6 @@ export class CoursesComponent implements OnInit {
   pageIndex = 0;
   pageSize = 10;
 
-
   constructor(
     private readonly coursesService: CoursesService,
     public dialog: MatDialog,
@@ -75,7 +74,6 @@ export class CoursesComponent implements OnInit {
         })
       );
   }
-
 
   onError(errorMsg: string) {
     this.dialog.open(ErrorDialogComponent, {
